@@ -29,3 +29,8 @@ memory layout at boot:
 
 - we can also implement the stack (works on only 16-bit boundaries in real mode) by setting two registers `bp` and `sp` which retain addresses of stack boundaries (should be set away from important regions of memory). Also, the stack grows downwards
 
+- to prevent the values of registers from being changed, `pusha` and `popa` instructions at the beginning or end of any function preserve the original register values.
+
+NOTE: on the using the `print_hex` function I wrote, I checked the auto-init values of `sp` and `bp` registers. Apparently, `bp` isn't a stack pointer but a general register used to manually track stack frames (was init'ed to `0000` which doesn't matter) but `sp` was init'ed to `00f6`! which is IVT territory!
+
+better to set `sp` manually to a address far away!

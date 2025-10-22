@@ -1,23 +1,37 @@
 [org 0x7c00]				; wont work without this directive, will start reading IVT garbage
 
 start:
-	mov si, msg
-	call print_string
+	mov si, sp
+	mov bx, 0
+	call print_hex
 	call print_newline
 
-	mov si, msg2
-	call print_string
+	mov si, bp
+	mov bx, 0
+	call print_hex
 	call print_newline
 
 	jmp $					; inf loop
 
-print_string:
+; only for 16-bit
+print_hex:
 	pusha
 	.loop:
-		lodsb				; loads string byte to `al` from [si], increments si
-		cmp al, 0
+		cmp bx, 4
 		je .done
-	
+		; x86 is lsb-first (need to look at lower nibble then upper)
+		; moves lower nibble
+		mov ax, si
+		and al, 0b00001111
+		cmp al, 9
+		jle .digit
+		add al, 7
+
+		.digit:
+			add al, '0'			; adding '0' sets num to corresponding ascii char
+
+		inc bx
+		shr si, 4
 		mov ah, 0x0e
 		int 0x10
 		jmp .loop
@@ -36,8 +50,5 @@ print_newline:
 	popa
 	ret
 
-msg: db 'HELLO WORLD!', 0
-msg2: db 'guess we do OS-DEV now', 0
-    
 times 510-($-$$) db 0
 dw 0xaa55
