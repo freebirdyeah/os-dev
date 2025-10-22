@@ -1,2 +1,2 @@
 # os-dev
-trying out OS-Dev
+bored, trying out OS-Dev
