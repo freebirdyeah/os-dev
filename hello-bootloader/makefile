@@ -3,3 +3,6 @@
 run:
 	nasm -f bin $(FILE) -o $(FILE:.asm=.bin)
 	qemu-system-x86_64 -drive format=raw,file=$(FILE:.asm=.bin)
+
+clean:
+	rm ./*.bin
