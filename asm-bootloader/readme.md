@@ -47,3 +47,16 @@ run:
         nasm -f bin $(FILE) -o $(FILE:.asm=.bin)
         qemu-system-x86_64 -drive format=raw,file=$(FILE:.asm=.bin)
 ```
+
+object dump:
+
+```bash
+
+$ od -t x1 boot.bin
+0000000 eb fe 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+0000020 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+*
+0000760 00 00 00 00 00 00 00 00 00 00 00 00 00 00 55 aa
+0001000
+
+```
