@@ -6,7 +6,7 @@
 
 a possible boot sector:
 
-```
+```asm
 e9 fd ff 00 00 00 00 00 00 00 00 00 00 00 00 00
 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 *
@@ -16,7 +16,7 @@ e9 fd ff 00 00 00 00 00 00 00 00 00 00 00 00 00
 > the first three bytes are instructions defined for an endless loop
 
 
-bootloader code (from `resources/os-dev-start`):
+bootloader code (from `resources/os-dev-start.pdf`):
 
 ```asm
 
@@ -40,7 +40,7 @@ dw 0xaa55 					; Last two bytes ( one word ) form the magic number ,
 
 makefile:
 
-```
+```make
 # make run FILE=boot_sect.asm
 
 run:
